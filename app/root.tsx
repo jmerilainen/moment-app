@@ -5,8 +5,8 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration
-} from "remix";
-import type { MetaFunction } from "remix";
+} from "@remix-run/react";
+import type { MetaFunction } from "@remix-run/node";
 
 import styles from "./tailwind.css";
 
@@ -27,7 +27,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="font-serif bg-[#f5f2f0]">
         <Outlet />
         <ScrollRestoration />
         <Scripts />
