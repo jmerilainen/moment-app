@@ -3,6 +3,7 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 import { Outlet } from "@remix-run/react";
 import useCalendar from "~/useCalendar"
 import useTodos, { Action, Todo } from "~/useTodos";
+import CalendarGrid from "./CalendarGrid";
 
 interface CalendarProps {
     date?: Date;
@@ -147,36 +148,23 @@ function Day({
 }
 
 export default function Calendar({ date = new Date(), current = undefined }: CalendarProps) {
-    const calendar = useCalendar(date);
     const [data, dispatch] = useTodos();
 
+    const d = (date: Date) => {
+      const key = format(date, 'yyyy-MM-dd');
+      const items = data.filter(item => item.date === key);
+      return (
+        <Day date={date} items={items} dispatch={dispatch}>
+              {date && current && isSameDay(date, current) ? <Outlet context={{date: date}} /> : ''}
+        </Day>
+      )
+    }
+
     return (
-        <div className="grid h-full grid-rows-6">
-            {calendar.map((weeks, week) => {
-            return (
-                <div className="grid grid-cols-7" key={week}>
-                {weeks.map((date, index) => {
-                    if (! date) {
-                        return <div className="p-4 text-xs bg-[#f5f2f0] dark:bg-slate-800 dark:text-slate-500" key={week + index} ></div>;
-                    }
-
-                    const key = format(date, 'yyyy-MM-dd');
-                    const items = data.filter(item => item.date === key);
-
-                    return (
-                        <div className="grid border border-[#f5f2f0] dark:border-slate-500 bg-white dark:bg-slate-800 dark:text-slate-500" key={week + index}>
-                            <Day date={date} items={items} dispatch={dispatch}>
-                                {date && current && isSameDay(date, current) ? <Outlet context={{date: date}} /> : ''}
-                            </Day>
-                        </div>
-                    )
-                })}
-                </div>
-            )
-            })}
-            <div className="row-span-4 dark:bg-slate-800">
-
-            </div>
-        </div>
-    )
+      <CalendarGrid
+        date={date}
+        day={(day) => d(day)}
+        key="index"
+      />
+  )
 }

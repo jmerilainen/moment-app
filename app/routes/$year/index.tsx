@@ -1,25 +1,29 @@
-import { format } from "date-fns";
+import { format, isToday } from "date-fns";
 import { Link, useParams } from "@remix-run/react";
-import Calendar from "~/components/Calendar";
+import CalendarGrid from "~/components/CalendarGrid";
+import DayPreview from "~/components/DayPreview";
+import { useCalendarMonths } from "~/useCalendar";
 
 export default function YearIndex() {
     const { year } = useParams();
 
-    const months = [...Array(12)].map((value, index) => new Date(Date.UTC(parseInt(year ?? '1970'), index, 1)));
+    const months = useCalendarMonths(parseInt(year ?? '1970'));
 
     return (
-        <div className="grid grid-cols-3 grid-rows-3 gap-4">
-            {months.map((date, index) => (
-                <div className="relative" key={format(date, 'yyyy/MM')}>
-                    <div>
-                    <Link className="absolute inset-0" to={`/${format(date, 'yyyy/MM')}`}>
+        <div className="grid gap-8 md:gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {months.map((date) => (
+                <div className="relative grid gap-4 group" key={format(date, 'yyyy/MM')}>
+                    <Link className="stretched" to={`/${format(date, 'yyyy/MM')}`}>
                         {format(date, 'MMMM')}
                     </Link>
-                    </div>
-                    <div>
-                    <div className="aspect-video">
-                        <Calendar date={date} key={index} />
-                    </div>
+                    <div className="transition ease-in-out aspect-video group-hover:opacity-75">
+                        <CalendarGrid
+                          date={date}
+                          day={(day) => <DayPreview day={Number(format(day, 'd'))} current={isToday(day)} />}
+                          key="index"
+                          collapse={false}
+                        />
+
                     </div>
                 </div>
             ))}

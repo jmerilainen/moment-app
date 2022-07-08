@@ -4,7 +4,7 @@ export default function App({ children }: {children: ReactNode}) {
     return (
       <div className="flex min-h-screen dark:bg-slate-800 dark:text-slate-200">
         <div className="flex flex-col w-full">
-          <section className="p-16 grow">
+          <section className="p-8 grow">
             <div className="container h-full mx-auto">
               {children}
             </div>

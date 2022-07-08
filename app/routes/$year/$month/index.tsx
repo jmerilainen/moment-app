@@ -15,7 +15,7 @@ export default function MonthIndex() {
 
     return (
       <div>
-        <div className="aspect-video">
+        <div className="md:aspect-video">
           <Calendar date={date} />
         </div>
       </div>
