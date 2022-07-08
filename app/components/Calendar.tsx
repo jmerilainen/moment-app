@@ -1,7 +1,6 @@
 import { format, isSameDay } from "date-fns";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { Outlet } from "@remix-run/react";
-import useCalendar from "~/useCalendar"
 import useTodos, { Action, Todo } from "~/useTodos";
 import CalendarGrid from "./CalendarGrid";
 
