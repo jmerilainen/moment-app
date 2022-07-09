@@ -1,19 +1,25 @@
+import { format } from "date-fns";
+import { nanoid } from "nanoid";
 import { useEffect, useReducer } from "react"
 
 export interface Todo {
     id: string;
     value: string;
-    date: string;
+    dateId: string;
     done: boolean;
 }
 
-
 export type Action =
-    | { type: 'ADD', payload: Todo }
+    | { type: 'ADD', value: string; date: Date }
     | { type: 'DELETE', id: string }
     | { type: 'DONE', id: string }
     | { type: 'EDIT', id: string, value: string }
 ;
+
+
+export function dateId(date: Date) {
+  return format(date, 'yyyy-MM-dd');
+}
 
 const initialState: Todo[] = [];
 
@@ -42,7 +48,12 @@ function reducer(state: Todo[], action: Action) {
         case 'ADD':
             return [
                 ...state,
-                action.payload
+                {
+                  id: nanoid(),
+                  value: action.value,
+                  dateId: dateId(action.date),
+                  done: false,
+                }
             ];
         default:
             return state;

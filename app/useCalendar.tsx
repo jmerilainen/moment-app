@@ -7,7 +7,7 @@ export function useCalendarDays(date: Date): (Date | undefined)[] {
   });
 
   const startDay = setDate(date, 1).getDay();
-  const fills = new Array(startDay > 0 ? startDay : 7).fill(undefined);
+  const fills = new Array(startDay > 0 ? startDay : 0).fill(undefined);
 
   return [...fills, ...days];
 }

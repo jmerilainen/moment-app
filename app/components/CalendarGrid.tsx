@@ -19,7 +19,7 @@ export default function CalendarGrid({ date, day, collapse = true } : { date: Da
 
         return (
           <div
-            className="text-xs bg-white dark:bg-slate-800 dark:text-slate-500"
+            className="grid text-xs bg-white dark:bg-slate-800 dark:text-slate-500"
             key={format(date, 'ymd')}
           >
             {day(date)}
