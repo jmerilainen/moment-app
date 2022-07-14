@@ -4,7 +4,7 @@ import { useParams } from "@remix-run/react";
 import Calendar from "~/components/Calendar";
 import useTodos from "~/useTodos";
 import App from "~/components/App";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function MonthRoute() {
   const { year, month } = useParams();
@@ -25,7 +25,7 @@ export default function MonthRoute() {
 
   const [todos, dispatch] = useTodos();
 
-  const onKeydown = (event: KeyboardEvent) => {
+  const onKeydown = useCallback((event: KeyboardEvent) => {
     if (event.target != document.querySelector("body")) {
       return;
     }
@@ -37,13 +37,13 @@ export default function MonthRoute() {
     if (event.key === "ArrowLeft") {
       navigate(`/${format(previousMonth, "yyyy/MM")}`, { replace: true });
     }
-  };
+  }, [navigate, nextMonth, previousMonth]);
 
   useEffect(() => {
     document.addEventListener("keyup", onKeydown);
 
     return () => document.removeEventListener("keyup", onKeydown);
-  }, [month]);
+  }, [onKeydown, month]);
 
   if (!isMounted) {
     return "";

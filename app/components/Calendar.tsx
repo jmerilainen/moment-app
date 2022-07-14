@@ -1,8 +1,8 @@
 import { format, isSameDay } from "date-fns";
-import { ReactNode, useEffect, useRef, useState } from "react";
-import { Link, Outlet, useParams } from "@remix-run/react";
-import useTodos, { Action, dateId, Todo } from "~/useTodos";
+import { useEffect, useRef, useState } from "react";
+import { dateId } from "~/useTodos";
 import CalendarGrid from "./CalendarGrid";
+import type { Todo } from "~/useTodos";
 
 interface CalendarProps {
     date?: Date;
@@ -46,7 +46,7 @@ function DayTask({
         if (ref.current && value === '') {
             ref.current.focus()
         }
-    }, [])
+    }, [value])
 
     return (
         <div className="flex gap-[0.5em] group relative">
