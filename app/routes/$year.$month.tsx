@@ -25,19 +25,22 @@ export default function MonthRoute() {
 
   const [todos, dispatch] = useTodos();
 
-  const onKeydown = useCallback((event: KeyboardEvent) => {
-    if (event.target != document.querySelector("body")) {
-      return;
-    }
+  const onKeydown = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.target != document.querySelector("body")) {
+        return;
+      }
 
-    if (event.key === "ArrowRight") {
-      navigate(`/${format(nextMonth, "yyyy/MM")}`, { replace: true });
-    }
+      if (event.key === "ArrowRight") {
+        navigate(`/${format(nextMonth, "yyyy/MM")}`, { replace: true });
+      }
 
-    if (event.key === "ArrowLeft") {
-      navigate(`/${format(previousMonth, "yyyy/MM")}`, { replace: true });
-    }
-  }, [navigate, nextMonth, previousMonth]);
+      if (event.key === "ArrowLeft") {
+        navigate(`/${format(previousMonth, "yyyy/MM")}`, { replace: true });
+      }
+    },
+    [navigate, nextMonth, previousMonth]
+  );
 
   useEffect(() => {
     document.addEventListener("keyup", onKeydown);

@@ -6,30 +6,37 @@ import { useCalendarMonths } from "~/useCalendar";
 import App from "~/components/App";
 
 export default function YearIndex() {
-    const { year } = useParams();
+  const { year } = useParams();
 
-    const months = useCalendarMonths(parseInt(year ?? '1970'));
+  const months = useCalendarMonths(parseInt(year ?? "1970"));
 
-    return (
-      <App>
-        <div className="grid gap-8 md:gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {months.map((date) => (
-                <div className="relative grid gap-4 group" key={format(date, 'yyyy/MM')}>
-                    <Link className="stretched" to={`/${format(date, 'yyyy/MM')}`}>
-                        {format(date, 'MMMM')}
-                    </Link>
-                    <div className="transition ease-in-out aspect-video group-hover:opacity-75">
-                        <CalendarGrid
-                          date={date}
-                          day={(day) => <DayPreview day={Number(format(day, 'd'))} current={isToday(day)} />}
-                          key="index"
-                          collapse={false}
-                        />
-
-                    </div>
-                </div>
-            ))}
+  return (
+    <App>
+      <div className="grid gap-8 md:gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {months.map((date) => (
+          <div
+            className="relative grid gap-4 group"
+            key={format(date, "yyyy/MM")}
+          >
+            <Link className="stretched" to={`/${format(date, "yyyy/MM")}`}>
+              {format(date, "MMMM")}
+            </Link>
+            <div className="transition ease-in-out aspect-video group-hover:opacity-75">
+              <CalendarGrid
+                date={date}
+                day={(day) => (
+                  <DayPreview
+                    day={Number(format(day, "d"))}
+                    current={isToday(day)}
+                  />
+                )}
+                key="index"
+                collapse={false}
+              />
+            </div>
           </div>
-        </App>
-    )
+        ))}
+      </div>
+    </App>
+  );
 }

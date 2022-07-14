@@ -3,9 +3,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        serif: ['Fraunces', 'serif'],
+        serif: ["Fraunces", "serif"],
       },
     },
   },
   plugins: [],
-}
+};
