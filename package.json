@@ -15,7 +15,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@remix-run/react": "^1.7.3",
+    "@remix-run/react": "^1.7.4",
     "@remix-run/serve": "^1.7.1",
     "cross-env": "^7.0.3",
     "date-fns": "^2.29.3",
