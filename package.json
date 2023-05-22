@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@remix-run/react": "^1.16.0",
-    "@remix-run/serve": "^1.15.0",
+    "@remix-run/serve": "^1.16.1",
     "cross-env": "^7.0.3",
     "date-fns": "^2.30.0",
     "nanoid": "^3.0.0",
